@@ -2,7 +2,7 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    before_action :require_authentication
+    before_action :resume_session
     helper_method :authenticated?
   end
 
@@ -23,6 +23,8 @@ module Authentication
 
     def resume_session
       Current.session ||= find_session_by_cookie
+
+      Current.session
     end
 
     def find_session_by_cookie
@@ -47,6 +49,7 @@ module Authentication
 
     def terminate_session
       Current.session.destroy
+      Current.session = nil
       cookies.delete(:session_id)
     end
 end
