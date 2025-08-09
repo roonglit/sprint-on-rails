@@ -1,37 +1,39 @@
-<%= form_with(model: [:admin, article]) do |form| %>
-  <% if article.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
+<div class='p-2'>
+  <%= form_with(model: [:admin, article]) do |form| %>
+    <% if article.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
 
-      <ul>
-        <% article.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% article.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :title, class: 'block'%>
+      <%= form.text_field :title, class: 'border-1 w-full' %>
+    </div>
+
+    <div>
+      <%= form.label :description, style: "display: block" %>
+      <%= form.rich_text_area :description %>
+    </div>
+
+    <div>
+      <%= form.label :summary, style: "display: block" %>
+      <%= form.textarea :summary, class: 'border-1 w-full'%>
+    </div>
+
+    <div>
+      <%= form.label :cover_image, style: "display: block" %>
+      <%= form.file_field :cover_image %>
+    </div>
+
+    <div>
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
-  </div>
-
-  <div>
-    <%= form.label :summary, style: "display: block" %>
-    <%= form.textarea :summary %>
-  </div>
-
-  <div>
-    <%= form.label :cover_image, style: "display: block" %>
-    <%= form.file_field :cover_image %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
